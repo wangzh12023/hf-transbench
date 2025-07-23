@@ -19,6 +19,35 @@
 # limitations under the License.
 """ LLaMA model configuration"""
 from transformers.models.llama.configuration_llama import LlamaConfig
+from transformers.models.llama.modeling_llama import LlamaAttention
+
+from typing import Optional, Tuple, Union, List
+import torch    
+
+
+from transformers.models.llama.configuration_llama import LlamaConfig
+
+from transformers.cache_utils import Cache, DynamicCache
+import torch
+import torch.nn.functional as F
+from torch import nn
+from torch.nn import CrossEntropyLoss
+
 
 class MyLlamaConfig(LlamaConfig):
     model_type = "my-llama"
+
+class MySigmoidLlamaConfig(LlamaConfig):
+    model_type = "my-llama-sigmoid"
+    
+    
+class MyLinearLlamaConfig(LlamaConfig):
+    model_type = "my-llama-linear"
+
+
+class MySigmoidWithBLlamaConfig(LlamaConfig):
+    model_type = "my-llama-sigmoid-with-b"
+
+
+class MySoftmaxLlamaConfig(LlamaConfig):
+    model_type = "my-llama-softmax"

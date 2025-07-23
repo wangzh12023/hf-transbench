@@ -1,4 +1,7 @@
 __pycache__
 wandb
-outputs
+/outputs/**
+!/outputs/
+!/outputs/**/
+!/outputs/**/README.md
 *.sh
