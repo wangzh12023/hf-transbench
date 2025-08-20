@@ -7,21 +7,21 @@ from .my_softmax_llama import MySoftmaxLlamaModel, MySoftmaxLlamaForCausalLM
 
 from transformers import AutoConfig, AutoModel, AutoModelForCausalLM, AutoModelForTokenClassification
 
-# AutoConfig.register("my-llama", MyLlamaConfig)
-# AutoModel.register(MyLlamaConfig, MyLlamaModel)
-# AutoModelForCausalLM.register(MyLlamaConfig, MyLlamaForCausalLM)
+AutoConfig.register("my-llama", MyLlamaConfig)
+AutoModel.register(MyLlamaConfig, MyLlamaModel)
+AutoModelForCausalLM.register(MyLlamaConfig, MyLlamaForCausalLM)
 
-# AutoConfig.register("my-llama-sigmoid", MySigmoidLlamaConfig)
-# AutoModel.register(MySigmoidLlamaConfig, MySigmoidLlamaModel)
-# AutoModelForCausalLM.register(MySigmoidLlamaConfig, MySigmoidLlamaForCausalLM)
+AutoConfig.register("my-llama-sigmoid", MySigmoidLlamaConfig)
+AutoModel.register(MySigmoidLlamaConfig, MySigmoidLlamaModel)
+AutoModelForCausalLM.register(MySigmoidLlamaConfig, MySigmoidLlamaForCausalLM)
 
-# AutoConfig.register("my-llama-linear", MyLinearLlamaConfig)
-# AutoModel.register(MyLinearLlamaConfig, MyLinearLlamaModel)
-# AutoModelForCausalLM.register(MyLinearLlamaConfig, MyLinearLlamaForCausalLM)
+AutoConfig.register("my-llama-linear", MyLinearLlamaConfig)
+AutoModel.register(MyLinearLlamaConfig, MyLinearLlamaModel)
+AutoModelForCausalLM.register(MyLinearLlamaConfig, MyLinearLlamaForCausalLM)
 
-# AutoConfig.register("my-llama-sigmoid-with-b", MySigmoidWithBLlamaConfig)
-# AutoModel.register(MySigmoidWithBLlamaConfig, MySigmoidWithBLlamaModel)
-# AutoModelForCausalLM.register(MySigmoidWithBLlamaConfig, MySigmoidWithBLlamaForCausalLM)
+AutoConfig.register("my-llama-sigmoid-with-b", MySigmoidWithBLlamaConfig)
+AutoModel.register(MySigmoidWithBLlamaConfig, MySigmoidWithBLlamaModel)
+AutoModelForCausalLM.register(MySigmoidWithBLlamaConfig, MySigmoidWithBLlamaForCausalLM)
 
 AutoConfig.register("my-llama-softmax", MySoftmaxLlamaConfig)
 AutoModel.register(MySoftmaxLlamaConfig, MySoftmaxLlamaModel)

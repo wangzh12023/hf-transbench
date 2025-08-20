@@ -69,9 +69,9 @@ class MySigmoidLlamaAttention(LlamaAttention):
             cache_kwargs = {"sin": sin, "cos": cos, "cache_position": cache_position}
             key_states, value_states = past_key_value.update(key_states, value_states, self.layer_idx, cache_kwargs)
 
-        # —— Use sigmoid instead of softmax ——
-        # manually compute attention output using sigmoid
-        # shape: [batch, num_heads, q_len, k_len]
+        #Use sigmoid instead of softmax
+        #manually compute attention output using sigmoid
+        #shape: [batch, num_heads, q_len, k_len]
         if self.num_key_value_groups > 1:
             key_states = key_states.repeat_interleave(self.num_key_value_groups, dim=1)
             value_states = value_states.repeat_interleave(self.num_key_value_groups, dim=1)
@@ -80,7 +80,7 @@ class MySigmoidLlamaAttention(LlamaAttention):
         if attention_mask is not None:
             attn_scores = attn_scores + attention_mask
 
-        attn_probs = torch.sigmoid(attn_scores)
+        attn_probs = F.softmax(attn_scores, dim=-1)
         attn_probs = F.dropout(attn_probs, p=self.attention_dropout, training=self.training)
 
         attn_output = torch.matmul(attn_probs, value_states)

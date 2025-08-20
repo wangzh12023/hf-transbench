@@ -97,7 +97,7 @@ class MySigmoidWithBLlamaModel(LlamaModel):
 
     def __init__(self, config: MySigmoidWithBLlamaConfig):
         super().__init__(config)
-        # Replace every block’s self-attention
+        #Replace every block’s self-attention
         for idx, block in enumerate(self.layers):
             block.self_attn = MySigmoidWithBLlamaAttention(config, layer_idx=idx)
 
@@ -156,7 +156,7 @@ class MySigmoidWithBLlamaForCausalLM(LlamaForCausalLM):
         output_attentions = return_dict if return_dict is not None else self.config.output_attentions
         return_dict = return_dict if return_dict is not None else self.config.use_return_dict
 
-        # Base model forward
+        #Base model forward
         outputs = self.model(
             input_ids=input_ids,
             attention_mask=attention_mask,
