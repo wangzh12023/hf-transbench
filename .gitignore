@@ -4,4 +4,4 @@ wandb
 !/outputs/
 !/outputs/**/
 !/outputs/**/README.md
-*.sh
+# *.sh
