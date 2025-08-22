@@ -79,8 +79,9 @@ class MySigmoidLlamaAttention(LlamaAttention):
 
         if attention_mask is not None:
             attn_scores = attn_scores + attention_mask
-
-        attn_probs = F.softmax(attn_scores, dim=-1)
+        attn_probs = torch.sigmoid(attn_scores)
+        #replace sigmoid to softmax to checkout if the implementation wrong
+        # attn_probs = F.softmax(attn_scores, dim=-1)
         attn_probs = F.dropout(attn_probs, p=self.attention_dropout, training=self.training)
 
         attn_output = torch.matmul(attn_probs, value_states)
