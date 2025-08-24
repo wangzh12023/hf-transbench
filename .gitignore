@@ -11,3 +11,26 @@ wandb
 !/outputs/**/train_results.json
 !/outputs/**/trainer_state.json
 # *.sh
+
+# !/outputs_check/
+# !/outputs_check/**/
+# !/outputs_check/**/README.md
+# !/outputs_check/**/all_results.json
+# !/outputs_check/**/config.json
+# !/outputs_check/**/eval_results.json
+# !/outputs_check/**/generation_config.json
+# !/outputs_check/**/train_results.json
+# !/outputs_check/**/trainer_state.json
+
+/outputs_check/**
+
+/results/**
+!/results/
+!/results/**/
+!/results/**/README.md
+!/results/**/all_results.json
+!/results/**/config.json
+!/results/**/eval_results.json
+!/results/**/generation_config.json
+!/results/**/train_results.json
+!/results/**/trainer_state.json

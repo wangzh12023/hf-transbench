@@ -33,5 +33,5 @@ accelerate launch run_clm.py \
     --load_best_model_at_end True \
     --metric_for_best_model eval_loss \
     --report_to none \
-    --output_dir outputs/my_llama_tiny_sigmoid_with_b-eager
+    --output_dir results_2/sigmoid_with_b
     

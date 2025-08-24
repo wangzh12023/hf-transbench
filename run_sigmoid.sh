@@ -3,6 +3,10 @@
 echo "Start running..."
 export HF_ENDPOINT=https://hf-mirror.com
 
+# export HTTP_PROXY=http://127.0.0.1:8991
+# export HTTPS_PROXY=http://127.0.0.1:8991
+# export WANDB_PROJECT="hf-starter"
+# export WANDB_ENTITY="3350-shanghaitech-university"
 accelerate launch run_clm.py \
     --config_name configs/my_llama_tiny_sigmoid.json \
     --tokenizer_name TinyLlama/TinyLlama-1.1B-intermediate-step-1195k-token-2.5T \
@@ -33,5 +37,5 @@ accelerate launch run_clm.py \
     --load_best_model_at_end True \
     --metric_for_best_model eval_loss \
     --report_to none \
-    --output_dir outputs/my_llama_tiny_sigmoid-eager-2025-08-21
+    --output_dir results_2/sigmoid-02
     
