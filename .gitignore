@@ -1,5 +1,6 @@
 __pycache__
 wandb
+results_2
 /outputs/**
 !/outputs/
 !/outputs/**/

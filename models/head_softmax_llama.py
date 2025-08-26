@@ -93,7 +93,8 @@ class HeadSoftmaxLlamaAttention(LlamaAttention):
         seq_len = attn_weights.size(-1) 
         bias = -torch.log(torch.tensor(seq_len, dtype=attn_weights.dtype, device=attn_weights.device))
         # upcast attention to fp32
-        attn_weights = nn.functional.softmax(attn_weights, dim=1, dtype=torch.float32).to(query_states.dtype)
+        #attn_weights: 
+        attn_weights = nn.functional.softmax(attn_weights+bias, dim=1, dtype=torch.float32).to(query_states.dtype)
         # attn_weights = nn.functional.softmax(attn_weights, dim=-1, dtype=torch.float32).to(query_states.dtype)
         # attn_weights = nn.functional.sigmoid(attn_weights + bias).to(query_states.dtype)
         attn_weights = nn.functional.dropout(attn_weights, p=self.attention_dropout, training=self.training)
