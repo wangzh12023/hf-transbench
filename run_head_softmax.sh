@@ -33,5 +33,5 @@ accelerate launch run_clm.py \
     --load_best_model_at_end True \
     --metric_for_best_model eval_loss \
     --report_to none \
-    --output_dir outputs/head_softmax_with_bias_2025-08-25
+    --output_dir outputs/head_softmax_with_bias_2025-09-01
 
