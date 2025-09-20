@@ -2,8 +2,8 @@ __pycache__
 wandb
 results_2
 
-outputs/
-outputs2/
+/outputs/
+/outputs2/
 # /outputs/**
 # !/outputs/
 # !/outputs/**/
@@ -26,7 +26,7 @@ outputs2/
 # !/outputs_check/**/train_results.json
 # !/outputs_check/**/trainer_state.json
 
-/outputs_check/**
+/outputs_check/
 
 /results/**
 !/results/
