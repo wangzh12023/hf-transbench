@@ -51,3 +51,6 @@ class MySigmoidWithBLlamaConfig(LlamaConfig):
 
 class HeadSoftmaxLlamaConfig(LlamaConfig):
     model_type = "my-llama-head-softmax"
+    
+class HeadSoftmaxWithBLlamaConfig(LlamaConfig):
+    model_type = "head-softmax-with-b"

@@ -4,7 +4,7 @@ echo "Start running..."
 export HF_ENDPOINT=https://hf-mirror.com
 
 accelerate launch run_clm.py \
-    --config_name configs/head_softmax.json \
+    --config_name configs/head_softmax_with_b.json \
     --tokenizer_name TinyLlama/TinyLlama-1.1B-intermediate-step-1195k-token-2.5T \
     --dataset_name wikitext \
     --dataset_config_name wikitext-103-raw-v1 \
@@ -33,5 +33,5 @@ accelerate launch run_clm.py \
     --load_best_model_at_end True \
     --metric_for_best_model eval_loss \
     --report_to none \
-    --output_dir outputs/head_softmax_with_bias_2025-09-01-2-head-group
+    --output_dir outputs2/head_softmax_with_bias_2025-09-07-with-b-re2
 

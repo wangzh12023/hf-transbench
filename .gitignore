@@ -1,16 +1,19 @@
 __pycache__
 wandb
 results_2
-/outputs/**
-!/outputs/
-!/outputs/**/
-!/outputs/**/README.md
-!/outputs/**/all_results.json
-!/outputs/**/config.json
-!/outputs/**/eval_results.json
-!/outputs/**/generation_config.json
-!/outputs/**/train_results.json
-!/outputs/**/trainer_state.json
+
+outputs/
+outputs2/
+# /outputs/**
+# !/outputs/
+# !/outputs/**/
+# !/outputs/**/README.md
+# !/outputs/**/all_results.json
+# !/outputs/**/config.json
+# !/outputs/**/eval_results.json
+# !/outputs/**/generation_config.json
+# !/outputs/**/train_results.json
+# !/outputs/**/trainer_state.json
 # *.sh
 
 # !/outputs_check/
