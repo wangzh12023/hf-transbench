@@ -90,22 +90,34 @@ class TwoSoftmaxLlamaAttention(LlamaAttention):
 
         if attention_mask is not None:
             causal_mask = attention_mask[:, :, :, : key_states.shape[-2]]
+            # print( "mask_to_apply shape:", causal_mask)
             attn_weights = attn_weights + causal_mask
             
         seq_len = attn_weights.size(-1) 
-        bias = -torch.log(torch.tensor(seq_len, dtype=attn_weights.dtype, device=attn_weights.device))
-        
+       
         # Apply softmax across head dimension (dim=1)
         # attn_weights shape: (batch, num_heads, seq_len, seq_len)
         # attn_weights = attn_weights + bias
         
-        attn_weights = nn.functional.softmax(attn_weights, dim=1, dtype=torch.float32).to(query_states.dtype)
+        # attn_weights = nn.functional.softmax(attn_weights, dim=1, dtype=torch.float32).to(query_states.dtype)
         # attn_weights = nn.functional.softmax(attn_weights, dim=-1, dtype=torch.float32).to(query_states.dtype)
+
+        # GQA group head-softmax： num_heads -> (num_key_value_heads, num_key_value_groups)
+        bsz, _, q_len, k_len = attn_weights.shape
+        kv_heads = self.num_key_value_heads
+        group_size = self.num_key_value_groups  
+
+        #  [B, H, Q, K] -> [B, H_kv, H_group, Q, K]， (H_group) 上做 softmax
+        attn_weights = attn_weights.view(bsz, kv_heads, group_size, q_len, k_len)
+        attn_weights = F.softmax(attn_weights, dim=1, dtype=torch.float32).to(query_states.dtype)
+        attn_weights = attn_weights.view(bsz, kv_heads * group_size, q_len, k_len)
         
-        # after softmax, set the positions where attention_mask is 0 to 0
         if attention_mask is not None:
-            mask_to_apply = attention_mask.bool().to(attn_weights.dtype)
-            attn_weights = attn_weights * mask_to_apply
+            seq_len = key_states.shape[-2]
+            causal_mask = torch.tril(torch.ones(seq_len, seq_len, device=attn_weights.device, dtype=attn_weights.dtype))
+            causal_mask = causal_mask.unsqueeze(0).unsqueeze(0).expand(attn_weights.shape)
+            # print("causal_mask shape:", causal_mask)
+            attn_weights = attn_weights * causal_mask
             
         # attn_weights = nn.functional.sigmoid(attn_weights).to(query_states.dtype)
         attn_weights = nn.functional.dropout(attn_weights, p=self.attention_dropout, training=self.training)
