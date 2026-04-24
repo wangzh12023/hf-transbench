@@ -16,7 +16,12 @@ TOKENIZER_NAME="${TOKENIZER_NAME:-TinyLlama/TinyLlama-1.1B-intermediate-step-119
 DATASET_NAME="${DATASET_NAME:-wikitext}"
 DATASET_CONFIG_NAME="${DATASET_CONFIG_NAME:-wikitext-103-raw-v1}"
 
-accelerate launch run_clm.py \
+accelerate launch \
+  --num_processes 1 \
+  --num_machines 1 \
+  --mixed_precision no \
+  --dynamo_backend no \
+  run_clm.py \
   --config_name "${CONFIG_NAME}" \
   --tokenizer_name "${TOKENIZER_NAME}" \
   --dataset_name "${DATASET_NAME}" \
@@ -36,10 +41,11 @@ accelerate launch run_clm.py \
   --do_train \
   --do_eval \
   --num_train_epochs 1 \
+  --overwrite_output_dir \
   --save_total_limit 1 \
   --save_strategy steps \
   --save_steps 200 \
-  --evaluation_strategy steps \
+  --eval_strategy steps \
   --eval_steps 200 \
   --logging_steps 50 \
   --load_best_model_at_end True \
