@@ -63,6 +63,15 @@ require_version("datasets>=2.14.0", "To fix: pip install -r examples/pytorch/lan
 
 logger = logging.getLogger(__name__)
 
+EAGER_ONLY_MODEL_TYPES = {
+    "my-llama-sigmoid",
+    "my-llama-sigmoid-with-b",
+    "my-llama-linear",
+    "my-llama-head-softmax",
+    "head-softmax-with-b",
+    "softmax-and-head-softmax",
+}
+
 
 MODEL_CONFIG_CLASSES = list(MODEL_FOR_CAUSAL_LM_MAPPING.keys())
 MODEL_TYPES = tuple(conf.model_type for conf in MODEL_CONFIG_CLASSES)
@@ -418,6 +427,15 @@ def main():
         logger.info(f"Overriding config: {model_args.config_overrides}")
         config.update_from_string(model_args.config_overrides)
         logger.info(f"New config: {config}")
+
+    if getattr(config, "model_type", None) in EAGER_ONLY_MODEL_TYPES and model_args.attn_implementation != "eager":
+        logger.warning(
+            "Model type '%s' uses custom manual attention and is incompatible with '%s'. "
+            "Falling back to --attn_implementation eager.",
+            config.model_type,
+            model_args.attn_implementation,
+        )
+        model_args.attn_implementation = "eager"
 
     tokenizer_kwargs = {
         "cache_dir": model_args.cache_dir,

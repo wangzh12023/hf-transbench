@@ -4,9 +4,9 @@ from .sigmoid_llama import  MySigmoidLlamaModel, MySigmoidLlamaForCausalLM
 from .Linear_llama import MyLinearLlamaModel, MyLinearLlamaForCausalLM
 from .sigmoid_llama_with_b import MySigmoidWithBLlamaModel, MySigmoidWithBLlamaForCausalLM
 from .head_softmax_llama import HeadSoftmaxLlamaModel, HeadSoftmaxLlamaForCausalLM
-from .head_softmax_with_b import HeadSoftmaxLlamaModel as HeadSoftmaxWithBLlamaModel, HeadSoftmaxLlamaForCausalLM as HeadSoftmaxWithBLlamaForCausalLM
+from .head_softmax_with_b import HeadSoftmaxWithBLlamaModel, HeadSoftmaxWithBLlamaForCausalLM
 from .twosoftmax_llama import TwoSoftmaxLlamaModel, TwoSoftmaxLlamaForCausalLM
-from transformers import AutoConfig, AutoModel, AutoModelForCausalLM, AutoModelForTokenClassification
+from transformers import AutoConfig, AutoModel, AutoModelForCausalLM
 
 AutoConfig.register("my-llama", MyLlamaConfig)
 AutoModel.register(MyLlamaConfig, MyLlamaModel)
