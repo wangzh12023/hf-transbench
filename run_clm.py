@@ -68,6 +68,7 @@ EAGER_ONLY_MODEL_TYPES = {
     "my-llama-sigmoid-with-b",
     "my-llama-linear",
     "my-llama-head-softmax",
+    "my-llama-sel-softmax",
     "head-softmax-with-b",
     "softmax-and-head-softmax",
 }

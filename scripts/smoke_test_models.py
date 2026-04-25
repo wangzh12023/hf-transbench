@@ -16,6 +16,7 @@ CONFIGS = [
     "configs/my_llama_tiny_sigmoid_with_b.json",
     "configs/my_llama_tiny_linear.json",
     "configs/head_softmax.json",
+    "configs/sel_softmax.json",
     "configs/head_softmax_with_b.json",
     "configs/softmax_and_head_softmax.json",
 ]

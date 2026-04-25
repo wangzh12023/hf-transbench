@@ -24,6 +24,10 @@ class HeadSoftmaxLlamaConfig(LlamaConfig):
     model_type = "my-llama-head-softmax"
 
 
+class SelSoftmaxLlamaConfig(LlamaConfig):
+    model_type = "my-llama-sel-softmax"
+
+
 class HeadSoftmaxWithBLlamaConfig(LlamaConfig):
     model_type = "head-softmax-with-b"
 

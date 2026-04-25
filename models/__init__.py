@@ -1,9 +1,10 @@
-from .configuration_llama import MyLlamaConfig, MySigmoidLlamaConfig, MyLinearLlamaConfig, MySigmoidWithBLlamaConfig, HeadSoftmaxLlamaConfig, HeadSoftmaxWithBLlamaConfig, SoftmaxAndHeadSoftmaxLlamaConfig
+from .configuration_llama import MyLlamaConfig, MySigmoidLlamaConfig, MyLinearLlamaConfig, MySigmoidWithBLlamaConfig, HeadSoftmaxLlamaConfig, SelSoftmaxLlamaConfig, HeadSoftmaxWithBLlamaConfig, SoftmaxAndHeadSoftmaxLlamaConfig
 from .modeling_llama import MyLlamaModel, MyLlamaForCausalLM
 from .sigmoid_llama import  MySigmoidLlamaModel, MySigmoidLlamaForCausalLM
 from .Linear_llama import MyLinearLlamaModel, MyLinearLlamaForCausalLM
 from .sigmoid_llama_with_b import MySigmoidWithBLlamaModel, MySigmoidWithBLlamaForCausalLM
 from .head_softmax_llama import HeadSoftmaxLlamaModel, HeadSoftmaxLlamaForCausalLM
+from .sel_softmax_llama import SelSoftmaxLlamaModel, SelSoftmaxLlamaForCausalLM
 from .head_softmax_with_b import HeadSoftmaxWithBLlamaModel, HeadSoftmaxWithBLlamaForCausalLM
 from .twosoftmax_llama import TwoSoftmaxLlamaModel, TwoSoftmaxLlamaForCausalLM
 from transformers import AutoConfig, AutoModel, AutoModelForCausalLM
@@ -27,6 +28,10 @@ AutoModelForCausalLM.register(MySigmoidWithBLlamaConfig, MySigmoidWithBLlamaForC
 AutoConfig.register("my-llama-head-softmax", HeadSoftmaxLlamaConfig)
 AutoModel.register(HeadSoftmaxLlamaConfig, HeadSoftmaxLlamaModel)
 AutoModelForCausalLM.register(HeadSoftmaxLlamaConfig, HeadSoftmaxLlamaForCausalLM)
+
+AutoConfig.register("my-llama-sel-softmax", SelSoftmaxLlamaConfig)
+AutoModel.register(SelSoftmaxLlamaConfig, SelSoftmaxLlamaModel)
+AutoModelForCausalLM.register(SelSoftmaxLlamaConfig, SelSoftmaxLlamaForCausalLM)
 
 AutoConfig.register("head-softmax-with-b", HeadSoftmaxWithBLlamaConfig)
 AutoModel.register(HeadSoftmaxWithBLlamaConfig, HeadSoftmaxWithBLlamaModel)

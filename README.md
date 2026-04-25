@@ -31,6 +31,7 @@ Custom eager-only model types:
 - `my-llama-sigmoid-with-b`
 - `my-llama-linear`
 - `my-llama-head-softmax`
+- `my-llama-sel-softmax`
 - `head-softmax-with-b`
 - `softmax-and-head-softmax`
 
@@ -53,6 +54,9 @@ bash run_linear.sh
 
 # Head-group softmax (GQA-aware)
 bash run_head_softmax.sh
+
+# Sequence softmax through the same custom attention path
+bash run_sel_softmax.sh
 
 # Head-group softmax with sigmoid+b gate
 bash run_head_softmax_with_b.sh
