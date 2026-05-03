@@ -27,7 +27,7 @@ accelerate launch \
   --dataset_name "${DATASET_NAME}" \
   --dataset_config_name "${DATASET_CONFIG_NAME}" \
   --per_device_train_batch_size 32 \
-  --per_device_eval_batch_size 16 \
+  --per_device_eval_batch_size 8 \
   --auto_find_batch_size \
   --gradient_accumulation_steps 1 \
   --block_size 2048 \
@@ -40,7 +40,7 @@ accelerate launch \
   --torch_dtype bfloat16 \
   --do_train \
   --do_eval \
-  --num_train_epochs 1 \
+  --num_train_epochs 3 \
   --overwrite_output_dir \
   --save_total_limit 1 \
   --save_strategy steps \
