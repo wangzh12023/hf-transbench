@@ -1,4 +1,17 @@
 from .configuration_llama import MyLlamaConfig, MySigmoidLlamaConfig, MyLinearLlamaConfig, MySigmoidWithBLlamaConfig, HeadSoftmaxLlamaConfig, SelSoftmaxLlamaConfig, HeadSoftmaxWithBLlamaConfig, SoftmaxAndHeadSoftmaxLlamaConfig
+from .configuration_pt import (
+    PtChannelGateConfig,
+    PtConfig,
+    PtHeadSoftmaxConfig,
+    PtHeadSoftmaxWithBConfig,
+    PtLinearConfig,
+    PtNormalizedSigmoidConfig,
+    PtSelSoftmaxConfig,
+    PtSigmoidChannelGateConfig,
+    PtSigmoidConfig,
+    PtSigmoidWithBConfig,
+    PtSoftmaxAndHeadSoftmaxConfig,
+)
 from .modeling_llama import MyLlamaModel, MyLlamaForCausalLM
 from .sigmoid_llama import  MySigmoidLlamaModel, MySigmoidLlamaForCausalLM
 from .Linear_llama import MyLinearLlamaModel, MyLinearLlamaForCausalLM
@@ -7,6 +20,7 @@ from .head_softmax_llama import HeadSoftmaxLlamaModel, HeadSoftmaxLlamaForCausal
 from .sel_softmax_llama import SelSoftmaxLlamaModel, SelSoftmaxLlamaForCausalLM
 from .head_softmax_with_b import HeadSoftmaxWithBLlamaModel, HeadSoftmaxWithBLlamaForCausalLM
 from .twosoftmax_llama import TwoSoftmaxLlamaModel, TwoSoftmaxLlamaForCausalLM
+from .modeling_pt import PtForCausalLM, PtModel
 from transformers import AutoConfig, AutoModel, AutoModelForCausalLM
 
 AutoConfig.register("my-llama", MyLlamaConfig)
@@ -40,3 +54,32 @@ AutoModelForCausalLM.register(HeadSoftmaxWithBLlamaConfig, HeadSoftmaxWithBLlama
 AutoConfig.register("softmax-and-head-softmax", SoftmaxAndHeadSoftmaxLlamaConfig)
 AutoModel.register(SoftmaxAndHeadSoftmaxLlamaConfig, TwoSoftmaxLlamaModel)
 AutoModelForCausalLM.register(SoftmaxAndHeadSoftmaxLlamaConfig, TwoSoftmaxLlamaForCausalLM)
+
+_PT_CONFIGS = [
+    ("pt", PtConfig),
+    ("pt-sel-softmax", PtSelSoftmaxConfig),
+    ("pt-sigmoid", PtSigmoidConfig),
+    ("pt-sigmoid-with-b", PtSigmoidWithBConfig),
+    ("pt-normalized-sigmoid", PtNormalizedSigmoidConfig),
+    ("pt-linear", PtLinearConfig),
+    ("pt-channel-gate", PtChannelGateConfig),
+    ("pt-sigmoid-channel-gate", PtSigmoidChannelGateConfig),
+    ("pt-head-softmax", PtHeadSoftmaxConfig),
+    ("pt-head-softmax-with-b", PtHeadSoftmaxWithBConfig),
+    ("pt-softmax-and-head-softmax", PtSoftmaxAndHeadSoftmaxConfig),
+]
+
+for model_type, config_cls in _PT_CONFIGS:
+    AutoConfig.register(model_type, config_cls)
+    if config_cls is PtConfig:
+        model_cls = PtModel
+        causal_lm_cls = PtForCausalLM
+    else:
+        model_cls = type(f"{config_cls.__name__}Model", (PtModel,), {"config_class": config_cls})
+        causal_lm_cls = type(
+            f"{config_cls.__name__}ForCausalLM",
+            (PtForCausalLM,),
+            {"config_class": config_cls},
+        )
+    AutoModel.register(config_cls, model_cls)
+    AutoModelForCausalLM.register(config_cls, causal_lm_cls)

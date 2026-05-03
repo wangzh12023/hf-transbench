@@ -71,6 +71,17 @@ EAGER_ONLY_MODEL_TYPES = {
     "my-llama-sel-softmax",
     "head-softmax-with-b",
     "softmax-and-head-softmax",
+    "pt",
+    "pt-sel-softmax",
+    "pt-sigmoid",
+    "pt-sigmoid-with-b",
+    "pt-normalized-sigmoid",
+    "pt-linear",
+    "pt-channel-gate",
+    "pt-sigmoid-channel-gate",
+    "pt-head-softmax",
+    "pt-head-softmax-with-b",
+    "pt-softmax-and-head-softmax",
 }
 
 

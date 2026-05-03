@@ -34,6 +34,7 @@ Custom eager-only model types:
 - `my-llama-sel-softmax`
 - `head-softmax-with-b`
 - `softmax-and-head-softmax`
+- PT CLM variants: `pt`, `pt-sigmoid`, `pt-sigmoid-with-b`, `pt-normalized-sigmoid`, `pt-linear`, `pt-channel-gate`, `pt-sigmoid-channel-gate`, `pt-head-softmax`, `pt-head-softmax-with-b`, `pt-softmax-and-head-softmax`
 
 ## 3. One-Command Training
 
@@ -75,6 +76,33 @@ Example:
 
 ```bash
 bash run_experiment.sh configs/my_llama_tiny_sigmoid.json results/sigmoid eager
+```
+
+PT variants use the same CLM entry point but run a causal PT dependency mask to avoid future-token leakage:
+
+```bash
+bash run_pt_softmax.sh
+bash run_pt_sigmoid.sh
+bash run_pt_sigmoid_with_b.sh
+bash run_pt_normalized_sigmoid.sh
+bash run_pt_channel_gate.sh
+bash run_pt_sigmoid_channel_gate.sh
+```
+
+Cluster/Slurm launchers:
+
+```bash
+# One PT run; override CONFIG_NAME/OUTPUT_DIR as needed.
+sbatch slurm/sbatch_pt_single.sh
+
+# Sweep all PT configs as a Slurm array.
+sbatch slurm/sbatch_pt_all.sh
+```
+
+Useful overrides:
+
+```bash
+CONFIG_NAME=configs/pt_96_sigmoid_with_b.json OUTPUT_DIR=results/pt_sigmoid_with_b sbatch slurm/sbatch_pt_single.sh
 ```
 
 ## 4. Correctness Smoke Test
