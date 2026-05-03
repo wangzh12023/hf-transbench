@@ -202,6 +202,19 @@ class PtHeadSelection(nn.Module):
 
         raise ValueError(f"Unsupported PT channel_gate_type={gate_type!r}")
 
+    def _transpose_dependencies_for_message(self, qh: torch.Tensor) -> torch.Tensor:
+        transposed_qh = qh.transpose(2, 3)
+        if not self.config.is_causal:
+            return transposed_qh
+
+        # PT has an incoming-message term. In CLM, future queries must not send
+        # information back to earlier target positions through this transpose.
+        seq_len = qh.shape[-1]
+        target_positions = torch.arange(seq_len, device=qh.device).view(1, 1, seq_len, 1)
+        source_positions = torch.arange(seq_len, device=qh.device).view(1, 1, 1, seq_len)
+        causal_message_mask = source_positions <= target_positions
+        return transposed_qh.masked_fill(~causal_message_mask, 0.0)
+
     def forward(
         self,
         qz: torch.Tensor,
@@ -249,7 +262,7 @@ class PtHeadSelection(nn.Module):
         qh = self.dropout(qh)
 
         qh_v1 = torch.matmul(qh, qz_v)
-        qh_v2 = torch.matmul(qh.transpose(2, 3), qz_uo)
+        qh_v2 = torch.matmul(self._transpose_dependencies_for_message(qh), qz_uo)
 
         qh_v1 = rope_applier.apply_o(qh_v1)
         qh_v2 = rope_applier.apply(qh_v2)
